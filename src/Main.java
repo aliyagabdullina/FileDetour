@@ -16,6 +16,7 @@ public class Main {
      * if_broken - показывает есть ли неверные ссылки на файлы
      * broken_file_name - если есть ссылка на несуществующий файл, это его имя
      * broken_file_directory - имя файла, где есть ссылка на несуществующий файл
+     * file_cycle - файл, в котором обнаружили цикл
      */
 
     public static final String PATH_NAME = "C:\\Users\\User\\Downloads\\Archive\\BasicExample";
@@ -26,6 +27,7 @@ public class Main {
     public static boolean if_broken = false;
     public static String broken_file_name;
     public static String broken_file_directory;
+    public static File file_cycle;
 
     /**
      * Основная логика программы: обход корневой папки, чтение всех файлов, обход файлов
@@ -54,7 +56,10 @@ public class Main {
                     broken_file_directory + "не существует");
         } else {
             if (if_cycle) {
-                System.out.println("Ошибка: в папке обнаружена циклическая зависимость");
+                System.out.println("Ошибка: в папке обнаружена циклическая зависимость. Файл " +
+                        file_cycle + " образовал цикл.");
+
+
             } else {
                 System.out.println("Все хорошо. Вот файлы в нужном порядке:");
                 for (int i = sorted_files.size() - 1; i >= 0; i--) {
@@ -101,6 +106,7 @@ public class Main {
 
     /**
      * Читает файл, находит все зависимости, записывает нужную информацию
+     *
      * @param index - индекс файла в списке всех файлов all_files
      */
 
@@ -133,6 +139,7 @@ public class Main {
 
     /**
      * Возвращает файл с указанным именем
+     *
      * @param file_name - имя файла, который ищем
      * @return - файл с указанным именем
      */
@@ -147,6 +154,7 @@ public class Main {
 
     /**
      * Читает имя файла, заданное в формате 'file name'
+     *
      * @param file_scanner - сканнер
      * @return - имя файла
      */
@@ -167,6 +175,7 @@ public class Main {
      * цифрой 2 - когда вышли.
      * Если попали в вершину с цифрой 1 - значит образовался цикл.
      * Перед выходом из рекурсии добавляем файл в список sorted_files
+     *
      * @param file_for_dfs - файл, из которого выполняем поиск в глубину
      */
     static void dfs(File file_for_dfs) {
@@ -179,6 +188,7 @@ public class Main {
             } else {
                 if (to_file.getColor() == 1) {
                     if_cycle = true;
+                    file_cycle = to_file;
                 }
             }
         }
