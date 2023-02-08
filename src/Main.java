@@ -19,7 +19,7 @@ public class Main {
      * file_cycle - файл, в котором обнаружили цикл
      */
 
-    public static final String PATH_NAME = "C:\\Users\\User\\Downloads\\Archive\\BasicExample";
+    public static final String PATH_NAME = "C:\\Users\\User\\IdeaProjects\\folders\\src\\BaseExample";
     public static ArrayList<File> all_files;
     public static ArrayList<String> all_files_names;
     public static boolean if_cycle = false;
